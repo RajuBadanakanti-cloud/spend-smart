@@ -1,0 +1,9 @@
+const errorMiddleware = (err, req, res, next) => {
+    console.log(err)
+    res.status(err.statusCode || 500).json({
+        status:"failed",
+        message: err.message || "Server Error!"
+    })
+}
+
+export default errorMiddleware
