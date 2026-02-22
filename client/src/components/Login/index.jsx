@@ -55,6 +55,7 @@ const Login = () => {
     return (
         <div className='h-screen w-screen bg-linear-to-r from-slate-900 to-slate-700 flex flex-col justify-center items-center fixed'>
             {/*  CARD */}
+            <h1 className="bg-linear-to-r from-blue-500 to-slate-200 bg-clip-text text-transparent text-2xl lg:text-4xl font-bold">Spend Smart</h1>
             <div className="w-[90%] sm:w-[70%] lg:w-1/3 px-6 py-6 md:px-10 md:py-10 bg-slate-600 rounded-lg shadow-lg">
                 <h1 className="font-bold text-blue-500 text-shadow-blue-900 text-shadow text-center">Login</h1>
 
