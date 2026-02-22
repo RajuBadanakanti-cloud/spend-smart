@@ -2,8 +2,6 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import helmet from "helmet"
-import xss from "xss-clean"
-import hpp from "hpp"
 import cors from "cors"
 
 import errorMiddleware from "./middlewares/errorMid.js"
@@ -16,12 +14,10 @@ const app = express()
 connectDB() // MONGODB CONNECTION
 
 app.use(helmet())
-app.use(xss())
-app.use(hpp())
 
 app.use(cors({
-    "origin":[ "https://spend-smart-rb-cloud.vercel.app", "http://localhost:5173"],
-    "credentials":true
+  origin:true,
+  credentials:true
 }))
 
 app.use(express.json())

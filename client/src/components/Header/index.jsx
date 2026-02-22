@@ -4,7 +4,7 @@ import UserContext from "../../context/UserContext"
 import { HomeIcon, ArrowLeftRight, LogOut,  User, X  } from "lucide-react";
 
 const Header = () => {
-    const {user} = useContext(UserContext)
+    const {user, logout} = useContext(UserContext)
     const [isScroll, setIsScroll] = useState(false)
     const [showLogoutPopup, setshowLogoutPopup] = useState(false) // State to control the visibility of the logout confirmation popup
     const [showUserProfile, setShowUserProfile] = useState(false) // State to control the visibility of the user profile popup
@@ -101,7 +101,10 @@ const userEmail = user.user ? user.user.email : "No email available"
                         className="h-8 md:h-10 px-3 md:px-4 bg-gray-600/40 text-white text-sm md:text-base mr-5 rounded md:rounded-md cursor-pointer
                         hover:bg-gray-700/60 transition-all duration-200">Cancel</button>
 
-                        <button type="button" onClick={() => navigation("/login")}
+                        <button type="button" onClick={() => {
+                            logout();
+                            navigation("/login")
+                        }}
                         className="h-8 md:h-10 px-3 md:px-4 bg-blue-700 text-white text-sm md:text-base rounded md:rounded-md cursor-pointer
                         hover:bg-blue-800 transition-all duration-200">Conform</button>
 

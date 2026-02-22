@@ -54,8 +54,7 @@ const UserContextProvider = ({children}) => {
                 }
              const response = await axios.get(`${URL}/user/transactions`, options)
             const data = response.data.transactions 
-            setAllTransactions(Array.isArray(data) ? data : []), setAllTransactions(data)
-             
+            setAllTransactions(Array.isArray(data) ? data : [])             
              }catch(err){
                 console.log(err)
              } 
