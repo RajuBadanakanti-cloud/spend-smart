@@ -45,7 +45,7 @@ const CATEGORY_TRANSACTION =  [
 ]
 
 const Transactions = () => {
-    const {allTransactions,token, setAllTransactions} = useContext(UserContext)
+    const {allTransactions = [],token, setAllTransactions} = useContext(UserContext)
     const [activeTab, setActiveTab] = useState("All")
     const [showDeletePopup ,setShowDelPopup] = useState(false) // show delete conformation popup
     const [deletingData, setDeletingData] = useState({}) // deleting...
@@ -64,7 +64,7 @@ const Transactions = () => {
     useEffect(() => {
         const handleSorting = async () => {
             try{    
-                const URL = "http://localhost:5000"
+                const URL = import.meta.env.VITE_API_URL // render
                 const options = {
                     headers:{
                         Authorization:`Bearer ${token}`

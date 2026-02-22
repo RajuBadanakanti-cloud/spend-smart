@@ -9,7 +9,7 @@ import { ArrowRightCircle, ArrowUp, ArrowDown  } from "lucide-react";
 
 
 const Dashboard = () => {
-    const {allTransactions} = useContext(UserContext)
+    const {allTransactions = []} = useContext(UserContext)
     const [showAddTransForm, setShowAddTransForm] = useState(false) // show 
    
     const navigation = useNavigate()
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
 
     // recent transactions
-    const recentTransactions = [...allTransactions].slice(0, 4);
+    const recentTransactions = [...allTransactions].slice(0, 4) || [];
     return (
         <>
             <Header />
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 {/* Recent Transactions */}
                     <div className="w-full mt-6 md:mt-10 mb-10 md:mb-5">
                         <h1 className="text-slate-50 text-sm md:text-base">Recent Transactions</h1>
-                        {recentTransactions.length === 0 ? (
+                        {recentTransactions.length === 0  ? (
                             <div className="w-full flex flex-col justify-center items-start text-center mt-5 md:mt-10">
                                 <h1 className="text-white/80 text-sm md:text-xl font-medium">No transactions found.</h1>
                             </div>                        ) :

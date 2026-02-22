@@ -25,7 +25,7 @@ const Register = () => {
                 password
             }
 
-            const URL = "http://localhost:5000"
+        const URL = import.meta.env.VITE_API_URL // render - from backend render
          /* fetch >>   const options = {
                 method:"POST",
                 header:{

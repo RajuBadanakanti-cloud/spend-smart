@@ -1,9 +1,10 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import UserContext from "../../context/UserContext"
 
 const DeleteTransaction = ({setShowDelPopup, deletingData}) => {
-    const {token, allTransactions, setAllTransactions} = useContext(UserContext) // Providers 
+    const {token, allTransactions, setAllTransactions} = useContext(UserContext) // from  content Providers 
+    const [isLoading, setIsLoading] = useState(false)
     
     const {_id, title, amount} = deletingData
 
@@ -11,7 +12,8 @@ const DeleteTransaction = ({setShowDelPopup, deletingData}) => {
 
 const handleDeleteTransaction = async () => {
     try {
-        const URL = "http://localhost:5000"
+        setIsLoading(true)
+        const URL = import.meta.env.VITE_API_URL // render
         const options = {
             headers:{
                 Authorization:`Bearer ${token}`
@@ -31,7 +33,10 @@ const handleDeleteTransaction = async () => {
 
     } catch (error) {
         console.error("Delete failed:", error.response?.data || error.message)
-    }
+        setIsLoading(false)
+    } finally{
+               setIsLoading(false)   
+            }
 }
 
     return (
@@ -51,7 +56,9 @@ const handleDeleteTransaction = async () => {
 
                     <button type="button" onClick={handleDeleteTransaction}
                     className="h-10 px-4 text-sm md:tex-base bg-red-500 text-white rounded-md cursor-pointer
-                    hover:bg-red-600 transition-all duration-200 mt-2 md:mt-0">Delete</button>
+                    hover:bg-red-600 transition-all duration-200 mt-2 md:mt-0">
+                    {isLoading ? "Deleting..." : "Delete"}    
+                    </button>
 
                 </section>
             </div>

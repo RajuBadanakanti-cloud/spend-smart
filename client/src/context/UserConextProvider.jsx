@@ -45,7 +45,8 @@ const UserContextProvider = ({children}) => {
     // GETING ALL TRANSACTION FROM BACKEND 
      useEffect(() => { 
         const fetchigUserTransaction = async () => { 
-            try{ const URL = "http://localhost:5000"
+            try{ 
+                const URL = import.meta.env.VITE_API_URL // render - from backend render
                  const options = {
                      headers : {
                          Authorization:`Bearer ${token}`

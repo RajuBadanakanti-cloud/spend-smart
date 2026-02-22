@@ -36,7 +36,7 @@ import {Loader} from "lucide-react"
             try {
                 setIsloading(true)
 
-                const URL = "http://localhost:5000"
+                const URL = import.meta.env.VITE_API_URL // render
                 const options = {
                     headers:{
                         Authorization:`Bearer ${token}`,
