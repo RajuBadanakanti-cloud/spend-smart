@@ -52,7 +52,7 @@ const userEmail = user.user ? user.user.email : "No email available"
             {showUserProfile && 
                 <div className=" bg-linear-to-b to-slate-200 via-blue-200  from-blue-500 px-2 md:px-4 pt-1 pb-2 md:pt-2 md:pb-4 flex flex-col justify-center items-start rounded-md fixed z-50 top-14 md:top-20 left-2 md:left-4">
                     <button onClick={() => setShowUserProfile(false)}
-                    className="ml-auto -mr-2 bg-red-500 rounded-full text-white cursor-pointer hover:bg-red-600 transition-colors duration-300"><X className="h-3 md:h-4 w-3 md:w-4"/></button>
+                    className="ml-auto -mr-1 md:-mr-2 bg-red-500 rounded-full text-white cursor-pointer hover:bg-red-600 transition-colors duration-300"><X className="h-3 md:h-4 w-3 md:w-4"/></button>
                     <h2 className="text-slate-900 text-sm md:text-base font-semibold text-center">{userName}</h2>
                     <p className="text-slate-700 text-xs md:text-sm">{userEmail}</p>
                 </div>
