@@ -43,9 +43,11 @@ const UserContextProvider = ({children}) => {
 
     
     // GETING ALL TRANSACTION FROM BACKEND 
+    const [isLoading, setIsLoading] = useState(false)
      useEffect(() => { 
         const fetchigUserTransaction = async () => { 
             try{ 
+                setIsLoading(true)
                 const URL = import.meta.env.VITE_API_URL // render - from backend render
                  const options = {
                      headers : {
@@ -57,14 +59,17 @@ const UserContextProvider = ({children}) => {
             setAllTransactions(Array.isArray(data) ? data : [])             
              }catch(err){
                 console.log(err)
-             } 
+                setIsLoading(false)
+             } finally{
+                setIsLoading(false)
+             }
         } 
             fetchigUserTransaction() 
     },[token])
 
 
     return (
-        <UserContext.Provider value={{user, token, login, logout, allTransactions, setAllTransactions}}>
+        <UserContext.Provider value={{user, token, login, logout, allTransactions, setAllTransactions, isLoading}}>
             {children}
         </UserContext.Provider>
     )

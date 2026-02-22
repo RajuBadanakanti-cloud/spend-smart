@@ -6,7 +6,7 @@ import EditTransaction from "../EditTransaction"
 import DeleteTransaction from "../DeleteTransaction"
 import { useEffect } from "react"
 import axios from "axios"
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Loader } from "lucide-react";
 
 // ["Food", "Rent", "Loan", "Transport", "Shopping", "Health", "Other"]
 const CATEGORY_TRANSACTION =  [ 
@@ -45,7 +45,7 @@ const CATEGORY_TRANSACTION =  [
 ]
 
 const Transactions = () => {
-    const {allTransactions = [],token, setAllTransactions} = useContext(UserContext)
+    const {allTransactions = [],token, setAllTransactions, isLoading} = useContext(UserContext)
     const [activeTab, setActiveTab] = useState("All")
     const [showDeletePopup ,setShowDelPopup] = useState(false) // show delete conformation popup
     const [deletingData, setDeletingData] = useState({}) // deleting...
@@ -85,6 +85,14 @@ const Transactions = () => {
         handleSorting()
     })
 
+
+// loader >>  
+const loading = () => (
+        <div className="mt-10 w-full bg-transparent flex flex-row justify-center items-center">
+        <Loader className="text-white h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 mr-2 animate-spin"/> 
+            <h1 className="text-white text-base md:text-lg lg:text-xl">Loading... </h1>  
+        </div>
+    )
 // ------------------------------------------------------------------------------------------------
     const filteredTransactions = allTransactions.filter(each => each.category === activeTab) 
     const TRANSACTIONS_LIST = activeTab === "All" ? allTransactions : filteredTransactions
@@ -92,7 +100,9 @@ const Transactions = () => {
     const searchingTransactions = TRANSACTIONS_LIST.filter(each => 
         each.title.toLowerCase().includes(searchInput.toLowerCase()) || 
         each.amount.toString().includes(searchInput) || each.type.toLowerCase().includes(searchInput.toLowerCase())) 
-     
+
+
+    const LOADING_STATUS = isLoading
 // ------------------------------------------------------------------------------------------    
     return (
         <>
@@ -170,8 +180,9 @@ const Transactions = () => {
           </div>
 
             {/* Transactions CARD section */}
-
-            {searchingTransactions.length === 0 ? (
+            {LOADING_STATUS ? loading() : (
+            
+            searchingTransactions.length === 0 ? (
             <div className="w-full flex flex-col justify-center items-center text-center mt-5 md:mt-10">
                 <h1 className="text-white/80 text-sm md:text-xl font-medium">No transactions found.</h1>
                 <p className="text-white/40 tracking-wide text-xs md:text-base mt-1">You haven’t recorded any transactions. 
@@ -219,8 +230,12 @@ const Transactions = () => {
                 
                 </li>                       
              )})}  
-            </ul>
-        }
+            </ul>   
+            )         
+            
+            }
+
+        
 
 
 

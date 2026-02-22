@@ -4,12 +4,12 @@ import UserContext from "../../context/UserContext";
 import { toWords } from "number-to-words";
 import { useNavigate } from "react-router-dom";
 import AddTransaction from "../AddTransaction";
-import { ArrowRightCircle, ArrowUp, ArrowDown  } from "lucide-react";
+import { ArrowRightCircle, ArrowUp, ArrowDown, Loader  } from "lucide-react";
 
 
 
 const Dashboard = () => {
-    const {allTransactions = []} = useContext(UserContext)
+    const {allTransactions = [], isLoading} = useContext(UserContext)
     const [showAddTransForm, setShowAddTransForm] = useState(false) // show 
    
     const navigation = useNavigate()
@@ -42,6 +42,16 @@ const Dashboard = () => {
 
     // recent transactions
     const recentTransactions = [...allTransactions].slice(0, 4) || [];
+        
+    const loading = () => (
+        <div className="mt-10 w-full bg-transparent flex flex-row justify-center items-center">
+        <Loader className="text-white h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 mr-2 animate-spin"/> 
+            <h1 className="text-white text-base md:text-lg lg:text-xl">Loading... </h1>  
+        </div>
+    )
+
+    const LOADING_STATUS = isLoading
+
     return (
         <>
             <Header />
@@ -88,10 +98,13 @@ const Dashboard = () => {
                 {/* Recent Transactions */}
                     <div className="w-full mt-6 md:mt-10 mb-10 md:mb-5">
                         <h1 className="text-slate-50 text-sm md:text-base">Recent Transactions</h1>
-                        {recentTransactions.length === 0  ? (
+                    { LOADING_STATUS ? loading() : (
+                        recentTransactions.length === 0 
+                         ? (
                             <div className="w-full flex flex-col justify-center items-start text-center mt-5 md:mt-10">
                                 <h1 className="text-white/80 text-sm md:text-xl font-medium">No transactions found.</h1>
-                            </div>                        ) :
+                            </div>                       
+                        ) :
                         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
                             { recentTransactions.map((each) => {
                                 const typeStyle = each.type === "Expense" ? "bg-red-600/60 text-white" : "bg-green-600/60 text-white"
@@ -115,7 +128,10 @@ const Dashboard = () => {
                                 
                             )})}
                         </ul>
-                        }
+                        
+
+                    )}
+
                     </div>
                 
                 {/* View All Transactions */}
