@@ -45,7 +45,7 @@ const CATEGORY_TRANSACTION =  [
 ]
 
 const Transactions = () => {
-    const {allTransactions = [],token, setAllTransactions, isLoading} = useContext(UserContext)
+    const {allTransactions = [],token, setAllTransactions, isLoading,  setIsLoading} = useContext(UserContext)
     const [activeTab, setActiveTab] = useState("All")
     const [showDeletePopup ,setShowDelPopup] = useState(false) // show delete conformation popup
     const [deletingData, setDeletingData] = useState({}) // deleting...
@@ -61,9 +61,11 @@ const Transactions = () => {
     const [limit, setLimit] = useState(10) // Limit of transactions per page
    
 // --------------------------------------------------------------------------------------
-    useEffect(() => {
+// filters, sorting    
+useEffect(() => {
         const handleSorting = async () => {
-            try{    
+            try{ 
+                setIsLoading(true)   
                 const URL = import.meta.env.VITE_API_URL // render
                 const options = {
                     headers:{
@@ -79,11 +81,14 @@ const Transactions = () => {
 
             }catch(err){
                 console.log(err)
+                setIsLoading(false)
+            }finally{
+                setIsLoading(false)
             }
         }
 
         handleSorting()
-    })
+}, [token, activeTab, limit, page, sortingBy, setIsLoading, setAllTransactions])
 
 
 // loader >>  

@@ -45,8 +45,8 @@ const userEmail = user.user ? user.user.email : "No email available"
             </button>
 
             <button type="button"value={showUserProfile} onClick={() => setShowUserProfile(!showUserProfile)}
-             className="cursor-pointer md:hidden  rounded-full p-1 bg-slate-500 transition-colors duration-300 mr-2">
-                <User size={10} strokeWidth={2.5} className="text-blue-50  hover:text-blue-200 transition-colors duration-300" />
+             className="cursor-pointer md:hidden rounded-full p-1 bg-slate-500 transition-colors duration-300 mr-2">
+                <User size={12} strokeWidth={2.5} className="text-blue-50  hover:text-blue-200 transition-colors duration-300" />
             </button>
             {/* Profile Popup */}
             {showUserProfile && 
@@ -81,12 +81,12 @@ const userEmail = user.user ? user.user.email : "No email available"
 
             {/* Logout Popup */}    
                 <button type="button" onClick={() => setshowLogoutPopup(true)}
-                className="h-10 w-34 hidden md:inline bg-blue-500 text-white text-base font-semibold rounded-lg mr-5 cursor-pointer
+                className="h-10 w-34 hidden md:inline bg-blue-500 text-white text-base font-semibold rounded-lg mr-4 cursor-pointer
                 hover:bg-blue-600 transition-colors duration-300 ">Logout</button>
 
                 <button type="button" onClick={() => setshowLogoutPopup(true)}
                 className="cursor-pointer pr-1 py-1 rounded-md bg-blue-500/80 text-white md:hidden hover:bg-blue-600/90 transition-colors duration-300">
-                <LogOut className=" text-blue-50 md:hidden hover:text-blue-200 transition-colors duration-300 ml-2 mr-2" size={16} strokeWidth={2.5}/>
+                <LogOut className=" text-blue-50 md:hidden hover:text-blue-200 transition-colors duration-300 ml-2 mr-0" size={16} strokeWidth={2.5}/>
                 </button>
 
 

@@ -36,8 +36,8 @@ const Dashboard = () => {
     const totalExpenseInWords = textAmount[0].toUpperCase() + textAmount.slice(1, textAmount.length) + " rupees";
     
     const netBalanceStyle = netBalance >= 0 ? "text-green-600" : "text-red-600"
-    const netBalanceIcon = netBalance >= 0 ? <ArrowUp className="h-4 w-4 md:h-5 md:w-5 inline-block ml-2 text-green-600"/> : 
-    <ArrowDown className="h-4 w-4 md:h-5 md:w-5 inline-block ml-2 text-red-600"/>  
+    const netBalanceIcon = netBalance >= 0 ? <ArrowUp className="h-4 w-4 md:h-5 md:w-5 inline-block ml-1 text-green-600"/> : 
+    <ArrowDown className="h-4 w-4 md:h-5 md:w-5 inline-block ml-1 text-red-600"/>  
 
 
     // recent transactions
@@ -70,15 +70,15 @@ const Dashboard = () => {
                         </h2>
 
                         <h2 className="text-base md:text-2xl font-bold mb-2">Total Expenses: 
-                            <span className="ml-4 text-blue-800 font-bold">₹ {totalExpense}</span>
+                            <span className="ml-2 md:ml-4 text-blue-800 font-bold">₹ {totalExpense}</span>
                         </h2>
 
                         <h2 className="text-base md:text-2xl  font-bold mb-2">Total Income: 
-                            <span className="ml-4 text-blue-800 font-bold">₹ {totalIncome}</span>
+                            <span className="ml-2 md:ml-4 text-blue-800 font-bold">₹ {totalIncome}</span>
                         </h2>
 
                         <h2 className="text-base md:text-2xl font-bold mb-2">Net Balance: 
-                            <span className={`ml-4 ${netBalanceStyle} font-bold`}>₹ {netBalance} {netBalanceIcon}</span>
+                            <span className={`ml-2 md:ml-4 ${netBalanceStyle} font-bold`}>₹ {netBalance} {netBalanceIcon}</span>
                         </h2>
 
                  
