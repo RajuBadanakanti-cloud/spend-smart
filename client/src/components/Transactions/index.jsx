@@ -57,8 +57,8 @@ const Transactions = () => {
     const [searchInput, setSearchInput] = useState("") // SEARCH Transactions
     const [sortingBy, setSortingBy] = useState("-createdAt")
     
-    const [page, setPage] = useState(1) // Pagination
-    const [limit, setLimit] = useState(10) // Limit of transactions per page
+    const [page, setPage] = useState() // Pagination
+    const [limit, setLimit] = useState() // Limit of transactions per page
    
 // --------------------------------------------------------------------------------------
 // filters, sorting    
@@ -114,7 +114,7 @@ const loading = () => (
         <Header/>
         <div className="min-h-screen w-screen bg-linear-to-t from-slate-900 to-slate-700 pt-20 flex flex-col justify-start items-center">
         { /* Content  */ }
-        <div className="w-[90%] min-h-screen flex flex-col justify-start items-start mt-2 md:mt-5 mb-10">
+        <div className="w-[85%] min-h-screen flex flex-col justify-start items-start mt-2 md:mt-5 mb-10">
             {/* Top Section */}      
             <section className="w-full md:w-4/5  mr-0 md:mr-5">
             <h1 className="text-white text-sm md:text-xl font-bold tracking-wide border-b-3 md:border-b-4 inline border-blue-500 pb-2">Transaction Explorer</h1>
@@ -122,47 +122,46 @@ const loading = () => (
                 Manage your expense history efficiently with advanced filtering and scalable data loading.</p>
             </section>
 
-
+            {/* Filters and Sorting */}
+            <section className="w-full flex justify-between items-center flex-wrap md:flex-nowrap mt-6 md:mt-10  gap-y-2">
+                
             {/* Search Section  */}
-            <section className="w-full md:w-[80%] lg:w-[70%] mt-6 md:mt-10">
                 <input type="search" id="search" placeholder="Search By the Title or Amount or Type"
                 value={searchInput} onChange={(event) => setSearchInput(event.target.value)}
-                className="bg-slate-50 text-sm md:text-base h-10 md:h-12 w-full px-4 py-2 rounded outline-none
-                 focus:ring-2 focus:ring-blue-500"/>
-            </section>
+                className="md:w-[50%] lg:w-[60%] bg-slate-50 text-sm md:text-base h-10 md:h-12 w-full px-4 py-2 rounded outline-none
+                 focus:ring-2 focus:ring-blue-500 mr-2 md:mr-4 mb-4 md:mb-0 "/>
 
-            {/* Sorting Section */}
-            <select name="sorting" value={sortingBy} onChange={(event) => setSortingBy(event.target.value)}
-            className="border bg-slate-50 font-semibold border-gray-300 p-2 rounded mt-4 md:mt-5 
-             focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm md:text-base">
-                <option value="-date">Newest First</option>
-                <option value="date">Oldest First</option>
-                <option value="-amount">Amount:  High → Low</option>
-                <option value="amount">Amount:  Low → High</option>
-            </select>
-            {/* Pagination */}
-            <section className="mt-2 mr-2 md:mr-0">
-                <label  htmlFor="Page" className="text-white font-semibold text-sm md:text-base mr-2">Page</label>
-                <input id="Page" type="number" min={1} max={100}  placeholder="Max: 100"
-                value={page} onChange={(event) => setPage(event.target.value)}
-                className="h-8 w-22 md:h-10 md:w-30 p-2 text-sm md:text-base bg-slate-50 rounded outline-none focus:ring-2 focus:ring-blue-500"/>
-            </section>
+                {/* Sorting Section */}
+                <select name="sorting" value={sortingBy} onChange={(event) => setSortingBy(event.target.value)}
+                className="border bg-slate-50 font-semibold border-gray-300 h-10 md:h-12 rounded 
+                focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm md:text-base mr-2 md:mr-4">
+                    <option value="-date">Newest First</option>
+                    <option value="date">Oldest First</option>
+                    <option value="-amount">Amount:  High → Low</option>
+                    <option value="amount">Amount:  Low → High</option>
+                </select>
 
-            <section className="mt-2">
-                <label htmlFor="limit" className="text-white font-semibold text-sm md:text-base  mr-2">Limit</label>
-                <input id="limit" type="number" min={1} max={1000} placeholder="Max: 1000"
-                value={limit} onChange={(event) => setLimit(event.target.value)}
-                className="h-8 w-22 md:h-10 md:w-30 p-2 text-sm md:text-base bg-slate-50 rounded outline-none  focus:ring-2 focus:ring-blue-500"/>
-            </section>
+                {/* Pagination */}
+                <section className="flex items-center">
+                    <input id="Page" type="number" min={1} max={100}  placeholder="Page"
+                    value={page} onChange={(event) => setPage(event.target.value)}
+                    className="h-10 md:h-12  md:w-22 p-2 text-sm md:text-base bg-slate-50 rounded outline-none focus:ring-2 focus:ring-blue-500 mr-2 md:mr-4 "/>
+                     
+                    <input id="limit" type="number" min={5} max={1000} placeholder="Limits"
+                    value={limit} onChange={(event) => setLimit(event.target.value)}
+                    className="h-10 md:h-12  md:w-22 p-2 text-sm md:text-base bg-slate-50 rounded outline-none  focus:ring-2 focus:ring-blue-500"/>
+        
+                </section>
 
+            </section>
 
             {/* Tabs section */}
             <div className="w-full flex flex-col md:flex-row justify-center md:justify-between  items-start md:items-center mt-10 mb-10">
             <ul className="w-full flex justify-start items-center flex-wrap mb-4 md:mb-0">
-              {CATEGORY_TRANSACTION.map(each => {
+            {CATEGORY_TRANSACTION.map(each => {
                 const isActive = activeTab === each.category
                 const activeStyles = isActive ? "bg-blue-700 hover:bg-blue-600" : "bg-slate-600 hover:bg-slate-500"
-              return (
+            return (
                 <li key={each.id} className="mr-4 md:mr-8 mb-4 sm:mb-4 lg:mb-2">
                 <button
                     onClick={() => setActiveTab(each.category)}
@@ -171,18 +170,19 @@ const loading = () => (
                     {each.category}
                 </button>
                 </li>
-                           
-             )
+                        
+            )
             })}  
             </ul>
 
-            <button onClick={() => setShowAddTransaction(true)}
-             className="h-12 md:h-14 w-full md:w-80 lg:w-76 text-white font-bold bg-blue-500 flex items-center justify-center gap-2 rounded shadow-blue-500/40 shadow-xl 
-             cursor-pointer hover:bg-blue-600 transition-colors duration-200 ml-0 md:ml-5">
-                <PlusCircle className="h-4 w-4 md:h-5 md:w-5"/>
-                 Add New Transaction</button>
+                <button onClick={() => setShowAddTransaction(true)}
+                className="h-12 md:h-14 w-full md:w-80 lg:w-76 text-white font-bold bg-blue-500 flex items-center justify-center gap-2 rounded shadow-blue-500/40 shadow-xl 
+                cursor-pointer hover:bg-blue-600 transition-colors duration-200 ml-0 md:ml-5">
+                    <PlusCircle className="h-4 w-4 md:h-5 md:w-5"/>
+                    Add New Transaction
+                </button>
 
-          </div>
+            </div>
 
             {/* Transactions CARD section */}
             {LOADING_STATUS ? loading() : (
@@ -197,7 +197,7 @@ const loading = () => (
 
             <ul className="max-h-125 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-scroll scrollbar-custom">
               {searchingTransactions.map(each =>{
-                const typeStyle = each.type === "Expense" ? "bg-red-600/60 text-white" : "bg-green-600/60 text-white"
+                const typeStyle = each.type === "Expense" ? "bg-red-600/40 text-black/60" : "bg-green-600/40 text-black/60"
                 const amountStyle = each.type === "Expense" ? "text-red-600" : "text-green-600"
                  return (
                 <li key={each._id} className="min-w-50 bg-white px-5 py-4 rounded-md shadow-blue-950 shadow-xl">
@@ -206,7 +206,7 @@ const loading = () => (
                         <h2 className={`text-sm md:text-xl ${amountStyle} font-bold mb-2 mr-4`}> ₹ {each.amount}</h2>
                         <p className={`px-3 md:px-4 py-1 text-xs md:text-sm font-semibold bg-blue-200 rounded-md md:rounded-4xl inline-block mb-4 ${typeStyle}`} >{each.type}</p>
                     </section>
-                    <p className="px-4 py-1 text-xs md:text-sm font-semibold bg-blue-200 rounded-xl md:rounded-4xl inline-block mb-2 md:mb-4">{each.category}</p>
+                    <p className="px-4 py-1 text-xs md:text-sm font-semibold text-slate-800/60 bg-blue-200/60 rounded-xl md:rounded-4xl inline-block mb-2 md:mb-4">{each.category}</p>
                     <p className="font-semibold text-sm md:text-base text-slate-800 mb-2">Date: {each.date}</p>
                     <p className="text-slate-600 text-xs md:text-sm mb-4">{each.notes}</p>
 
