@@ -33,7 +33,7 @@ const userName = user.user ? user.user.name : "Guest"
 const userEmail = user.user ? user.user.email : "No email available"
 
     return (
-        <header className={`fixed top-0 left-0 h-14 md:h-20 w-screen flex justify-between items-center flex-wrap px-4 md:px-10 transition-all duration-300 ease-in-out
+        <header className={`fixed  z-50 top-0 left-0 h-14 md:h-20 w-screen flex justify-between items-center flex-wrap px-4 md:px-10 transition-all duration-300 ease-in-out
             ${isScroll ? "bg-linear-to-r from-slate-400/20  to-slate-600 shadow-lg backdrop-blur-md" :
              "bg-linear-to-r from-slate-100/20  to-blue-900/20 shadow-md backdrop-blur-md"}`}>
 
@@ -111,9 +111,6 @@ const userEmail = user.user ? user.user.email : "No email available"
                     </section>
                 </div>
             }
-
-
-         
 
             </nav>
         </header>
