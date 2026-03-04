@@ -13,11 +13,11 @@ export const protect = async (req, res, next) => {
     try{
         decode = jwt.verify(token, process.env.JWT_SECRET)
     }catch(err){
-        return next(new AppError("token invalid or expired!", 401))
+        return next(new AppError("token invalid or expired! Please re-login", 401))
     }
 
     const currentUser = await User.findById(decode.id) //important
-    if(!currentUser)return next(new AppError("User no more longer exist, Please login agin", 401))
+    if(!currentUser)return next(new AppError("User no more longer exist, Please login again", 401))
 
     req.user = currentUser // imp
     next()
